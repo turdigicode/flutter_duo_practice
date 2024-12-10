@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
+//must be deleted later
 const String _fontFamily = "Comfortaa";
 
 class AppFonts{
+
+  static const String fontFamily = "Comfortaa";
+
   static TextStyle bold = const TextStyle(fontFamily: _fontFamily, fontWeight: FontWeight.w700);
 
   static TextStyle semiBold = const TextStyle(fontFamily: _fontFamily, fontWeight: FontWeight.w600);
