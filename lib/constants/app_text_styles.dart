@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_duo_practice/constants/fonts_constants.dart';
+import 'package:flutter_duo_practice/constants/app_fonts.dart';
 import 'app_colors.dart';
 import 'app_font_sizes.dart';
 
@@ -17,6 +17,12 @@ class AppTextStyles {
   static final TextStyle body = _base.copyWith(
     color: AppColors.text,
     fontSize: AppFontSizes.body,
+    fontWeight: FontWeight.normal,
+  );
+
+  static final TextStyle form = _base.copyWith(
+    color: AppColors.text,
+    fontSize: AppFontSizes.medium,
     fontWeight: FontWeight.normal,
   );
 

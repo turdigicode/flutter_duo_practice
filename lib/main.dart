@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_duo_practice/constants/fonts_constants.dart';
+import 'package:flutter_duo_practice/constants/app_fonts.dart';
 
 void main() {
   runApp(const MyApp());

@@ -4,6 +4,7 @@ import 'package:flutter_duo_practice/constants/app_colors.dart';
 import 'package:flutter_duo_practice/constants/app_spacing.dart';
 import 'package:flutter_duo_practice/pages/auth_pages/registration_page.dart';
 import '../../constants/app_text_styles.dart';
+import '../../forms/login_form.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key, required this.title});
@@ -15,7 +16,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,17 +34,7 @@ class _LoginPageState extends State<LoginPage> {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: AppSpacing.large),
-
-            TextButton(
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const LoginPage(title: '')),
-                  );
-                },
-                style: AppButtonStyles.primary,
-                child: const Text('Увійти')
-            ),
+            const MyCustomForm(),
             const SizedBox(height: AppSpacing.large),
             Text(
               'Ще не маєте акаунту?',
