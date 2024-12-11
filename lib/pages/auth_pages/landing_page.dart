@@ -6,29 +6,6 @@ import 'package:flutter_duo_practice/pages/auth_pages/login_page.dart';
 import 'package:flutter_duo_practice/pages/auth_pages/registration_page.dart';
 import '../../constants/app_text_styles.dart';
 
-
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Landing page',
-      theme: ThemeData(
-        textTheme: TextTheme(
-        bodyLarge: AppTextStyles.body,
-        ),
-        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
-        useMaterial3: true,
-      ),
-      home: const LandingPage(title: 'Вітаємо'),
-    );
-  }
-}
-
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key, required this.title});
 
@@ -68,7 +45,7 @@ class _LandingPageState extends State<LandingPage> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const RegistrationPage(title: 'Зареєструйтеся')),
+                    MaterialPageRoute(builder: (context) => const RegistrationPage(title: 'Зареєструватися')),
                   );
                 },
                 style: AppButtonStyles.primary,
@@ -79,7 +56,7 @@ class _LandingPageState extends State<LandingPage> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const LoginPage(title: 'Увійдіть')),
+                    MaterialPageRoute(builder: (context) => const LoginPage(title: 'Вхід')),
                   );
                 },
                 style: AppButtonStyles.secondary,

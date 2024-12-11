@@ -29,12 +29,12 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Увійти в існуючий акаунт.',
+              'Увійти в акаунт.',
               style: AppTextStyles.title,
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: AppSpacing.large),
-            const MyCustomForm(),
+            const LoginForm(),
             const SizedBox(height: AppSpacing.large),
             Text(
               'Ще не маєте акаунту?',
@@ -46,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
                 onPressed: () {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => const RegistrationPage(title: 'Зареєструйтеся')),
+                    MaterialPageRoute(builder: (context) => const RegistrationPage(title: 'Зареєструватися')),
                   );
                 },
                 style: AppButtonStyles.secondary,

@@ -3,6 +3,7 @@ import 'package:flutter_duo_practice/constants/app_button_styles.dart';
 import 'package:flutter_duo_practice/constants/app_colors.dart';
 import 'package:flutter_duo_practice/constants/app_spacing.dart';
 import '../../constants/app_text_styles.dart';
+import '../../forms/registration_form.dart';
 import 'login_page.dart';
 
 class RegistrationPage extends StatefulWidget {
@@ -34,16 +35,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: AppSpacing.large),
-            TextButton(
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const RegistrationPage(title: 'Зареєструйтеся')),
-                  );
-                },
-                style: AppButtonStyles.primary,
-                child: const Text('Зареєструватися')
-            ),
+            const RegistrationForm(),
             const SizedBox(height: AppSpacing.large),
             Text(
               'Вже маєте акаунт?',

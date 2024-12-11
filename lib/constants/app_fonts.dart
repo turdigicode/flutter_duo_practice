@@ -7,6 +7,7 @@ class AppFonts{
 
   static const String fontFamily = "Comfortaa";
 
+  //TextStyles here must be deleted after correction in main.dart
   static TextStyle bold = const TextStyle(fontFamily: _fontFamily, fontWeight: FontWeight.w700);
 
   static TextStyle semiBold = const TextStyle(fontFamily: _fontFamily, fontWeight: FontWeight.w600);

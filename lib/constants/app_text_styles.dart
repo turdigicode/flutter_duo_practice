@@ -23,7 +23,7 @@ class AppTextStyles {
   static final TextStyle form = _base.copyWith(
     color: AppColors.text,
     fontSize: AppFontSizes.medium,
-    fontWeight: FontWeight.normal,
+    fontWeight: FontWeight.bold,
   );
 
   static final TextStyle error = _base.copyWith(

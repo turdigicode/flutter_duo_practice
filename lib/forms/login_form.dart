@@ -1,21 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_duo_practice/constants/app_button_styles.dart';
 import 'package:flutter_duo_practice/constants/app_text_styles.dart';
-
-import '../constants/app_colors.dart';
+import 'package:flutter_duo_practice/constants/app_form_styles.dart';
 import '../constants/app_spacing.dart';
+import '../input_validators/email_validator.dart';
+import '../input_validators/password_validator.dart';
 
-class MyCustomForm extends StatefulWidget {
-  const MyCustomForm({super.key});
+class LoginForm extends StatefulWidget {
+  const LoginForm({super.key});
 
   @override
-  MyCustomFormState createState() {
-    return MyCustomFormState();
+  LoginFormState createState() {
+    return LoginFormState();
   }
 }
 
-class MyCustomFormState extends State<MyCustomForm> {
+class LoginFormState extends State<LoginForm> {
+  final appFormStyles = AppFormStyles();
   final _formKey = GlobalKey<FormState>();
+
+  bool _isWrongInputEmail = false;
+  bool _isWrongInputPassword = false;
+  bool _isObscured = true;
+
+  void _toggleVisibility() {
+    setState(() {
+      _isObscured = !_isObscured;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,69 +39,56 @@ class MyCustomFormState extends State<MyCustomForm> {
           key: _formKey,
           child: Column(
             children: <Widget>[
+
+              //Email Field
               TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Введіть Вашу пошту',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                    borderSide: const BorderSide(
-                      color: AppColors.secondary
-                    )
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                    borderSide: const BorderSide(
-                      color: AppColors.primary,
-                      width: 1.5,
-                    ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                    borderSide: const BorderSide(
-                      color: AppColors.secondary,
-                      width: 2.0,
-                    ),
-                  ),
-                  hintStyle: AppTextStyles.buttonSecondary,
-                  errorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                    borderSide: const BorderSide(
-                      color: AppColors.error,
-                      width: 2.0,
-                    ),
-                  ),
-                  errorStyle: const TextStyle(
-                    color: AppColors.text,
-                    fontSize: 12.0,
-                  ),
-                ),
+              decoration: appFormStyles.formInputDecorationDefault(
+              labelText: "Введіть Вашу пошту",
+              isError: _isWrongInputEmail
+          ),
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Будь ласка, введіть коректно Вашу пошту.';
+                  if (value != null && EmailValidator.validate(value)) {
+                    setState(() {
+                      _isWrongInputEmail = false;
+                    });
+                    return null;
                   }
-                  return null;
+                  setState(() {
+                    _isWrongInputEmail = true;
+                  });
+                  return 'Будь ласка, введіть коректну пошту.';
+                },
+                style: AppTextStyles.form,
+              ),
+
+              const SizedBox(height: AppSpacing.medium),
+
+              //Password Field
+              TextFormField(
+                decoration: appFormStyles.formInputDecorationPassword(
+                    labelText: "Введіть Ваш пароль",
+                    isError: _isWrongInputPassword,
+                    isObscured: _isObscured,
+                    onVisibilityToggle: _toggleVisibility
+                ),
+                obscureText: _isObscured,
+                validator: (value) {
+                  if (value != null && PasswordValidator.validate(value)) {
+                    setState(() {
+                      _isWrongInputPassword = false;
+                    });
+                    return null;
+                  }
+                  setState(() {
+                    _isWrongInputPassword = true;
+                  });
+                  return 'Будь ласка, введіть коректний пароль.';
                 },
                 style: AppTextStyles.form,
               ),
               const SizedBox(height: AppSpacing.medium),
-              TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Введіть Вашу пошту',
-                  border: OutlineInputBorder(),
-                  errorStyle: TextStyle(
-                    color: AppColors.text,
-                    fontSize: 14.0,
-                  ),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Будь ласка, введіть коректно Ваш пароль.';
-                  }
-                  return null;
-                },
-                style: AppTextStyles.form,
-              ),
-              const SizedBox(height: AppSpacing.medium),
+
+              //Confirmation Button
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
