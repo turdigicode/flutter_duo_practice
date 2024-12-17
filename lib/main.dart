@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_duo_practice/constants/app_text_styles.dart';
 import '../constants/app_colors.dart';
 import '../constants/app_routes.dart';
-import '../constants/fonts_constants.dart';
 import '../screens/favorites/favorites.dart';
 import '../screens/player/player.dart';
 import '../screens/profile/profile.dart';
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       title: 'Meditation',
       //home: const MyHomePage(),
       theme: ThemeData(
-        textTheme: TextTheme(titleLarge: AppFonts.regular),
+        textTheme: TextTheme(titleLarge: AppTextStyles.body),
         colorScheme: ColorScheme.fromSeed(
             seedColor: AppColors.secondary,
             surface: AppColors.background
