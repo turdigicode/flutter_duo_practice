@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../constants/app_colors.dart';
 import '../constants/app_routes.dart';
 import '../constants/fonts_constants.dart';
-import '../screens/favorites/favorites.dart';
+import '../screens/home/home.dart';
 import '../screens/player/player.dart';
 import '../screens/profile/profile.dart';
 
@@ -26,24 +26,24 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      initialRoute: AppRoutes.home,
+      initialRoute: AppRoutes.main,
       onGenerateRoute: AppRoutes.onGenerateRoute,
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+class MainPage extends StatefulWidget {
+  const MainPage({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MainPage> createState() => _MainPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _selectedIndex = 1;
+class _MainPageState extends State<MainPage> {
+  int _selectedIndex = 0;
 
   final List<Widget> _screens = [
-    const Favorites(),
+    const Home(),
     const Player(),
     const Profile()
   ];
@@ -51,6 +51,9 @@ class _MyHomePageState extends State<MyHomePage> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+      if(_selectedIndex == 1){
+        Navigator.pushNamed(context, AppRoutes.player);
+      }
     });
   }
 
@@ -66,11 +69,18 @@ class _MyHomePageState extends State<MyHomePage> {
         selectedFontSize: 0,
         backgroundColor: AppColors.primary,
         items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home, size: 40), label: ""),
           BottomNavigationBarItem(
-              icon: Icon(Icons.play_circle_rounded, size: 70), label: ""),
+              icon: Icon(Icons.home, size: 40),
+              label: ""
+          ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle_rounded, size: 40), label: ""),
+              icon: Icon(Icons.play_circle_rounded, size: 70),
+              label: ""
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.account_circle_rounded, size: 40),
+              label: ""
+          ),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: AppColors.secondary,

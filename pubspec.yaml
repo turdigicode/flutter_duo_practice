@@ -68,6 +68,15 @@ flutter:
       - asset: assets/fonts/Comfortaa/Comfortaa-Light.ttf
         weight: 200
 
+  assets:
+    - assets/images/subcategories_backgrounds/asmr.png
+    - assets/images/subcategories_backgrounds/calm_music.jpeg
+    - assets/images/subcategories_backgrounds/deep_breathing.jpeg
+    - assets/images/subcategories_backgrounds/lo-fi.png
+    - assets/images/subcategories_backgrounds/mindfulness.jpeg
+    - assets/images/subcategories_backgrounds/nature_sounds.jpeg
+    - assets/images/subcategories_backgrounds/white_noise.png
+
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 import '../main.dart';
-import '../screens/favorites/favorites.dart';
+import '../screens/home/home.dart';
 import '../screens/player/player.dart';
 import '../screens/profile/profile.dart';
 
 class AppRoutes {
-  static const String home = "/";
-  static const String favorites = "/favorites";
+  static const String main = "/";
+  static const String home = "/home";
   static const String player = "/player";
   static const String profile = "/profile";
 
@@ -15,16 +15,16 @@ class AppRoutes {
     return MaterialPageRoute(
         builder: (BuildContext context) {
           switch (settings.name) {
+            case main:
+              return const MainPage();
             case home:
-              return const MyHomePage();
-            case favorites:
-              return const Favorites();
+              return const Home();
             case player:
               return const Player();
             case profile:
               return const Profile();
             default:
-              return const MyHomePage();
+              return const MainPage();
           }
       },
     );

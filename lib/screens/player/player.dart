@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_duo_practice/constants/app_colors.dart';
 
+import '../../constants/app_routes.dart';
+
 class Player extends StatelessWidget {
   const Player({super.key});
 
@@ -9,6 +11,12 @@ class Player extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Player page"),
+        leading:
+          IconButton(
+            onPressed: (){
+              Navigator.pushNamedAndRemoveUntil(context, AppRoutes.main, (route) => false);
+            },
+            icon: const Icon(Icons.arrow_back)),
       ),
       backgroundColor: AppColors.primary,
       body: const Center(
