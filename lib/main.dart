@@ -17,7 +17,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Meditation',
-      //home: const MyHomePage(),
       theme: ThemeData(
         textTheme: TextTheme(titleLarge: AppFonts.regular),
         colorScheme: ColorScheme.fromSeed(

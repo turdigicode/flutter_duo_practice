@@ -1,10 +1,11 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_duo_practice/classes/categories/sub_category.dart';
+import 'package:flutter_duo_practice/constants/app_routes.dart';
+import 'package:flutter_duo_practice/screens/home/models/sub_category.dart';
 import 'package:flutter_duo_practice/constants/app_colors.dart';
 
-import '../../classes/categories/main_category.dart';
+import 'mocks/main_category.mocks.dart';
+import 'mocks/sub_category.mocks.dart';
+import 'models/main_category.dart';
 import '../../constants/app_text_styles.dart';
 
 class Home extends StatefulWidget {
@@ -21,8 +22,8 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
 
     final filteredSubCategories = _selectedCategory == "All"
-    ? SubCategory.subCategories
-    : SubCategory.subCategories.where((subCategory) => subCategory.mainCategory.name == _selectedCategory).toList();
+    ? subCategories
+    : subCategories.where((subCategory) => subCategory.mainCategory.name == _selectedCategory).toList();
 
     return Scaffold(
       appBar: AppBar(
@@ -40,12 +41,13 @@ class _HomeState extends State<Home> {
         children: [
           MainCategoriesChips(
               selectedCategory: _selectedCategory,
-              mainCategories: MainCategory.mainCategories,
+              mainCategories: mainCategories,
               onCategorySelected: (category) =>
                 setState(() {
                   _selectedCategory = category;
                 })
               ),
+
           Expanded(
             child: SubCategoriesGridView(filteredSubCategories: filteredSubCategories)
           )
@@ -106,50 +108,55 @@ class SubCategoriesGridView extends StatelessWidget{
         scrollDirection: Axis.vertical,
 
         itemBuilder: (context, index){
-          return Card(
-            elevation: 6,
-            color: AppColors.primary,
-            child: Padding(
-              padding: const EdgeInsets.all(0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Expanded(
-                      flex: 3,
-                        child: ClipRRect(
-                          borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
-                          child: Image.asset(
-                            filteredSubCategories[index].pathToImage,
-                            fit: BoxFit.cover,
-                          ),
-                        )
+          return GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, AppRoutes.subCategoryDetails, arguments: filteredSubCategories[index]);
+            },
+            child: Card(
+              elevation: 6,
+              color: AppColors.primary,
+              child: Padding(
+                padding: const EdgeInsets.all(0),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Expanded(
+                          flex: 3,
+                          child: ClipRRect(
+                            borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+                            child: Image.asset(
+                              filteredSubCategories[index].pathToImage,
+                              fit: BoxFit.cover,
+                            ),
+                          )
 
-                    ),
-                    const SizedBox(height: 20),
+                      ),
+                      const SizedBox(height: 20),
 
-                    Flexible(
-                      flex: 1,
-                        child: Text(
-                          filteredSubCategories[index].name,
-                          style: AppTextStyles.title,
-                          textAlign: TextAlign.center,
-                          overflow: TextOverflow.fade,
-                          softWrap: true,
-                        )
-                    ),
-                    const SizedBox(height: 20),
+                      Flexible(
+                          flex: 1,
+                          child: Text(
+                            filteredSubCategories[index].name,
+                            style: AppTextStyles.title,
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.fade,
+                            softWrap: true,
+                          )
+                      ),
+                      const SizedBox(height: 20),
 
-                    Flexible(
-                        flex: 2,
-                        child: Text(
-                          filteredSubCategories[index].description,
-                          style: AppTextStyles.body,
-                          textAlign: TextAlign.center,
-                          overflow: TextOverflow.fade,
-                          softWrap: true,
-                        )
-                    ),
-                  ]
+                      Flexible(
+                          flex: 2,
+                          child: Text(
+                            filteredSubCategories[index].description,
+                            style: AppTextStyles.body,
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.fade,
+                            softWrap: true,
+                          )
+                      ),
+                    ]
+                ),
               ),
             ),
           );
