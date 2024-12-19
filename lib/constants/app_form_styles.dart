@@ -4,8 +4,13 @@ import 'app_fonts.dart';
 import 'app_text_styles.dart';
 
 class AppFormStyles{
+  static const BorderRadius _borderRadius = BorderRadius.all(Radius.circular(12.0));
 
-  InputDecoration formInputDecorationDefault({
+  static const OutlineInputBorder _base = OutlineInputBorder(
+    borderRadius: _borderRadius,
+  );
+
+  static InputDecoration formInputDecorationDefault({
     required String labelText,
     required bool isError,
   }) {
@@ -14,6 +19,7 @@ class AppFormStyles{
       labelStyle: TextStyle(
         color: isError ? AppColors.error : AppColors.secondary,
         fontWeight: FontWeight.bold,
+        fontFamily: AppFonts.fontFamily
       ),
       errorMaxLines: 2,
       border: _defaultBorder,
@@ -21,11 +27,12 @@ class AppFormStyles{
       focusedBorder: _focusedBorder,
       errorBorder: _errorBorder,
       hintStyle: AppTextStyles.buttonSecondary,
-      errorStyle: _errorStyle,
+      errorStyle: AppTextStyles.error,
+      counterText: '',
     );
   }
 
-  InputDecoration formInputDecorationPassword({
+  static InputDecoration formInputDecorationPassword({
     required String labelText,
     required bool isError,
     required bool isObscured,
@@ -48,33 +55,24 @@ class AppFormStyles{
     );
   }
 
-  static const OutlineInputBorder _defaultBorder = OutlineInputBorder(
-    borderRadius: BorderRadius.all(Radius.circular(12.0)),
-    borderSide: BorderSide(
+  static final OutlineInputBorder _defaultBorder = _base.copyWith(
+    borderSide: const BorderSide(
       color: AppColors.secondary,
       width: 1.0,
     ),
   );
 
-  static const OutlineInputBorder _focusedBorder = OutlineInputBorder(
-    borderRadius: BorderRadius.all(Radius.circular(12.0)),
-    borderSide: BorderSide(
+  static final OutlineInputBorder _focusedBorder = _base.copyWith(
+    borderSide: const BorderSide(
       color: AppColors.secondary,
       width: 3.0,
     ),
   );
 
-  static const OutlineInputBorder _errorBorder = OutlineInputBorder(
-    borderRadius: BorderRadius.all(Radius.circular(12.0)),
-    borderSide: BorderSide(
+  static final OutlineInputBorder _errorBorder = _base.copyWith(
+    borderSide: const BorderSide(
       color: AppColors.error,
       width: 2.0,
     ),
-  );
-
-  static const TextStyle _errorStyle = TextStyle(
-    color: AppColors.text,
-    fontSize: 12.0,
-    fontFamily: AppFonts.fontFamily,
   );
 }

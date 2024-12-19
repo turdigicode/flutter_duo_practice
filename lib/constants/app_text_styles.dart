@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_duo_practice/constants/app_fonts.dart';
 import 'app_colors.dart';
 import 'app_font_sizes.dart';
+import 'app_fonts.dart';
 
 class AppTextStyles {
   static const TextStyle _base = TextStyle(
