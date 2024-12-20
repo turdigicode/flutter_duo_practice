@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_duo_practice/constants/app_text_styles.dart';
 import '../constants/app_colors.dart';
 import '../constants/app_routes.dart';
 import '../constants/fonts_constants.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Meditation',
       theme: ThemeData(
-        textTheme: TextTheme(titleLarge: AppFonts.regular),
+        textTheme: TextTheme(titleLarge: AppTextStyles.body),
         colorScheme: ColorScheme.fromSeed(
             seedColor: AppColors.secondary,
             surface: AppColors.background

@@ -69,6 +69,7 @@ flutter:
         weight: 200
 
   assets:
+    - assets/images/
     - assets/images/subcategories_backgrounds/
     - assets/music/
 
