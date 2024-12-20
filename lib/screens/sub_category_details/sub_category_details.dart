@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_duo_practice/constants/app_text_styles.dart';
-import 'package:flutter_duo_practice/screens/sub_category_details/mocks/music.mock.dart';
-import 'package:flutter_duo_practice/screens/sub_category_details/models/music.dart';
+import 'package:flutter_duo_practice/screens/sub_category_details/mocks/PlaylistSong.mocks.dart';
+import 'package:flutter_duo_practice/screens/sub_category_details/models/PlaylistSong.dart';
 
 import '../../constants/app_colors.dart';
 import '../../constants/app_routes.dart';
@@ -9,12 +9,16 @@ import '../home/models/sub_category.dart';
 
 class SubCategoryDetails extends StatelessWidget {
   const SubCategoryDetails({super.key, required this.subCategory});
+
   final SubCategory subCategory;
+
+  List<PlaylistSong> filterMusic() => playlistSongs
+      .where((song) => song.relatedSubCategory == subCategory.name)
+      .toList();
 
   @override
   Widget build(BuildContext context) {
-
-    final filteredMusic = music.where((music) => music.relatedSubCategory == subCategory.name).toList();
+    final filteredMusic = filterMusic();
 
     return Scaffold(
       appBar: AppBar(
@@ -26,28 +30,25 @@ class SubCategoryDetails extends StatelessWidget {
           // Stack(
           //   alignment: Alignment.center,
           //   children: [
-            Expanded(
-              child: Container(
-                alignment: Alignment.center,
+          Expanded(
+            child: Container(
+              alignment: Alignment.center,
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(30)),
                 child:
-                ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(30)),
-                  child:
-                  Image.network(
-                    subCategory.pathToImage,
-                    fit: BoxFit.cover),
-                ),
+                    Image.network(subCategory.pathToImage, fit: BoxFit.cover),
               ),
             ),
+          ),
 
-              // Container(
-              //   alignment: Alignment.center,
-              //   child: Text(
-              //     subCategory.name,
-              //     style: AppTextStyles.title,
-              //     textAlign: TextAlign.center,
-              //   ),
-              // ),
+          // Container(
+          //   alignment: Alignment.center,
+          //   child: Text(
+          //     subCategory.name,
+          //     style: AppTextStyles.title,
+          //     textAlign: TextAlign.center,
+          //   ),
+          // ),
           //   ],
           // ),
           const SizedBox(height: 20),
@@ -61,7 +62,7 @@ class SubCategoryDetails extends StatelessWidget {
 }
 
 class MusicListView extends StatefulWidget {
-  final List<Music> filteredMusic;
+  final List<PlaylistSong> filteredMusic;
 
   const MusicListView({super.key, required this.filteredMusic});
 
@@ -72,13 +73,13 @@ class MusicListView extends StatefulWidget {
 class _MusicListViewState extends State<MusicListView> {
   @override
   Widget build(BuildContext context) {
-
     return ListView.builder(
       itemCount: widget.filteredMusic.length,
       itemBuilder: (context, index) {
-
         IconData icon;
-        icon = widget.filteredMusic[index].isLiked ? Icons.favorite : Icons.favorite_border;
+        icon = widget.filteredMusic[index].isLiked
+            ? Icons.favorite
+            : Icons.favorite_border;
 
         final song = widget.filteredMusic[index];
 
@@ -127,7 +128,8 @@ class _MusicListViewState extends State<MusicListView> {
                     color: AppColors.secondary,
                     onPressed: () {
                       setState(() {
-                        widget.filteredMusic[index].isLiked = !widget.filteredMusic[index].isLiked;
+                        widget.filteredMusic[index].isLiked =
+                            !widget.filteredMusic[index].isLiked;
                       });
                     },
                   ),

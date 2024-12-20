@@ -12,8 +12,6 @@ class Profile extends StatelessWidget {
           padding: EdgeInsets.only(left: 56),
           child: Text("Profile page"),
         )
-
-
       ),
       backgroundColor: AppColors.primary,
       body: const Center(

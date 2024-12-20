@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_duo_practice/constants/app_colors.dart';
 import 'package:flutter_duo_practice/constants/app_routes.dart';
 import 'package:flutter_duo_practice/screens/home/models/sub_category.dart';
-import 'package:flutter_duo_practice/constants/app_colors.dart';
 
+import '../../constants/app_text_styles.dart';
 import 'mocks/main_category.mocks.dart';
 import 'mocks/sub_category.mocks.dart';
 import 'models/main_category.dart';
-import '../../constants/app_text_styles.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -16,53 +16,67 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  String _selectedCategory = "All";
+  final String _defaultCategory = "All";
+  final String _titleText = "Home page";
+  final String profileImageSrc =
+      "https://avatars.githubusercontent.com/u/120330210?v=4";
+
+  late String _selectedCategory = _defaultCategory;
+  late List<SubCategory> filteredSubCategories;
+
+  void selectCategory(category) => setState(() {
+    _selectedCategory = category;
+  });
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedCategory = _defaultCategory;
+    filteredSubCategories = _selectedCategory == _defaultCategory
+        ? subCategories
+        : subCategories
+            .where((subCategory) =>
+                subCategory.mainCategory.name == _selectedCategory)
+            .toList();
+  }
 
   @override
   Widget build(BuildContext context) {
-
-    final filteredSubCategories = _selectedCategory == "All"
-    ? subCategories
-    : subCategories.where((subCategory) => subCategory.mainCategory.name == _selectedCategory).toList();
-
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Home page"),
-        backgroundColor: AppColors.background,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 20),
-          child: Image.network("https://avatars.githubusercontent.com/u/120330210?v=4"),
+        appBar: AppBar(
+          title: Text(_titleText),
+          backgroundColor: AppColors.background,
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 20),
+            child: Image.network(profileImageSrc),
+          ),
         ),
-      ),
-      backgroundColor: AppColors.background,
-
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          MainCategoriesChips(
-              selectedCategory: _selectedCategory,
-              mainCategories: mainCategories,
-              onCategorySelected: (category) =>
-                setState(() {
-                  _selectedCategory = category;
-                })
-              ),
-
-          Expanded(
-            child: SubCategoriesGridView(filteredSubCategories: filteredSubCategories)
-          )
-        ],
-      )
-    );
+        backgroundColor: AppColors.background,
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            MainCategoriesChips(
+                selectedCategory: _selectedCategory,
+                mainCategories: mainCategories,
+                onCategorySelected: selectCategory),
+            Expanded(
+                child: SubCategoriesGridView(
+                    filteredSubCategories: filteredSubCategories))
+          ],
+        ));
   }
 }
 
-class MainCategoriesChips extends StatelessWidget{
+class MainCategoriesChips extends StatelessWidget {
   final List<MainCategory> mainCategories;
   final String selectedCategory;
   final ValueChanged<String> onCategorySelected;
 
-  const MainCategoriesChips({super.key, required this.selectedCategory, required this.mainCategories, required this.onCategorySelected});
+  const MainCategoriesChips(
+      {super.key,
+      required this.selectedCategory,
+      required this.mainCategories,
+      required this.onCategorySelected});
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +93,7 @@ class MainCategoriesChips extends StatelessWidget{
               backgroundColor: AppColors.primary,
               selectedColor: AppColors.secondary,
               selected: selectedCategory == mainCategory.name,
-              onSelected: (bool selected){
+              onSelected: (bool selected) {
                 onCategorySelected(mainCategory.name);
               },
             ),
@@ -90,7 +104,7 @@ class MainCategoriesChips extends StatelessWidget{
   }
 }
 
-class SubCategoriesGridView extends StatelessWidget{
+class SubCategoriesGridView extends StatelessWidget {
   final List<SubCategory> filteredSubCategories;
 
   const SubCategoriesGridView({super.key, required this.filteredSubCategories});
@@ -98,19 +112,18 @@ class SubCategoriesGridView extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-        gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: (MediaQuery.of(context).size.width / 250).floor(),
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
-            mainAxisExtent: 300
-        ),
+            mainAxisExtent: 300),
         itemCount: filteredSubCategories.length,
         scrollDirection: Axis.vertical,
-
-        itemBuilder: (context, index){
+        itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {
-              Navigator.pushNamed(context, AppRoutes.subCategoryDetails, arguments: filteredSubCategories[index]);
+              Navigator.pushNamed(context, AppRoutes.subCategoryDetails,
+                  arguments: filteredSubCategories[index]);
             },
             child: Card(
               elevation: 6,
@@ -123,16 +136,14 @@ class SubCategoriesGridView extends StatelessWidget{
                       Expanded(
                           flex: 3,
                           child: ClipRRect(
-                            borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+                            borderRadius: const BorderRadius.vertical(
+                                top: Radius.circular(12)),
                             child: Image.asset(
                               filteredSubCategories[index].pathToImage,
                               fit: BoxFit.cover,
                             ),
-                          )
-
-                      ),
+                          )),
                       const SizedBox(height: 20),
-
                       Flexible(
                           flex: 1,
                           child: Text(
@@ -141,10 +152,8 @@ class SubCategoriesGridView extends StatelessWidget{
                             textAlign: TextAlign.center,
                             overflow: TextOverflow.fade,
                             softWrap: true,
-                          )
-                      ),
+                          )),
                       const SizedBox(height: 20),
-
                       Flexible(
                           flex: 2,
                           child: Text(
@@ -153,14 +162,11 @@ class SubCategoriesGridView extends StatelessWidget{
                             textAlign: TextAlign.center,
                             overflow: TextOverflow.fade,
                             softWrap: true,
-                          )
-                      ),
-                    ]
-                ),
+                          )),
+                    ]),
               ),
             ),
           );
-        }
-    );
+        });
   }
 }

@@ -69,20 +69,8 @@ flutter:
         weight: 200
 
   assets:
-    - assets/images/subcategories_backgrounds/asmr.png
-    - assets/images/subcategories_backgrounds/calm_music.jpeg
-    - assets/images/subcategories_backgrounds/deep_breathing.jpeg
-    - assets/images/subcategories_backgrounds/lo-fi.png
-    - assets/images/subcategories_backgrounds/mindfulness.jpeg
-    - assets/images/subcategories_backgrounds/nature_sounds.jpeg
-    - assets/images/subcategories_backgrounds/white_noise.png
-
-    - assets/music/calm-soul-meditation-247330.mp3
-    - assets/music/meditation-blue-138131.mp3
-    - assets/music/meditation-music-256141.mp3
-    - assets/music/relaxing-meditation-231762.mp3
-    - assets/music/serenity-waves-zen-meditation-247329.mp3
-    - assets/music/zen-spiritual-yoga-massage-meditation-spa-relax-ambient-music-18403.mp3
+    - assets/images/subcategories_backgrounds/
+    - assets/music/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
