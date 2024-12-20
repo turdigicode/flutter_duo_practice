@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_duo_practice/constants/app_text_styles.dart';
 import '../constants/app_colors.dart';
 import '../constants/app_routes.dart';
-import '../constants/fonts_constants.dart';
 import '../screens/home/home.dart';
 import '../screens/player/player.dart';
 import '../screens/profile/profile.dart';

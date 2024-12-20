@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_duo_practice/screens/auth_screens/landing_screen.dart';
 
 import '../main.dart';
 import '../screens/home/home.dart';
@@ -13,6 +14,7 @@ class AppRoutes {
   static const String player = "/player";
   static const String profile = "/profile";
   static const String subCategoryDetails = "/subCategoryDetails";
+  static const String landingScreen = "/landingScreen";
 
   static MaterialPageRoute? onGenerateRoute(RouteSettings settings) {
     return MaterialPageRoute(
@@ -29,6 +31,8 @@ class AppRoutes {
             case subCategoryDetails:
               final subCategory = settings.arguments as SubCategory;
               return SubCategoryDetails(subCategory: subCategory);
+            case landingScreen:
+              return const LandingScreen();
             default:
               return const MainPage();
           }
