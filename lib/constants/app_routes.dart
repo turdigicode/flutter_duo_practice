@@ -5,6 +5,7 @@ import '../main.dart';
 import '../screens/home/home.dart';
 import '../screens/home/models/sub_category.dart';
 import '../screens/player/player.dart';
+import '../screens/profile/inner_browser.dart';
 import '../screens/profile/profile.dart';
 import '../screens/sub_category_details/sub_category_details.dart';
 
@@ -15,6 +16,7 @@ class AppRoutes {
   static const String profile = "/profile";
   static const String subCategoryDetails = "/subCategoryDetails";
   static const String landingScreen = "/landingScreen";
+  static const String webBrowser = "/innerBrowser";
 
   static MaterialPageRoute? onGenerateRoute(RouteSettings settings) {
     return MaterialPageRoute(
@@ -33,6 +35,8 @@ class AppRoutes {
               return SubCategoryDetails(subCategory: subCategory);
             case landingScreen:
               return const LandingScreen();
+            case webBrowser:
+              return const InnerBrowser();
             default:
               return const MainPage();
           }

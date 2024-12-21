@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_duo_practice/constants/app_colors.dart';
 import 'package:flutter_duo_practice/constants/app_routes.dart';
 import 'package:flutter_duo_practice/screens/home/models/sub_category.dart';
-
 import '../../constants/app_text_styles.dart';
 import 'mocks/main_category.mocks.dart';
 import 'mocks/sub_category.mocks.dart';
