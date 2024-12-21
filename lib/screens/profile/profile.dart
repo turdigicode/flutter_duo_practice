@@ -1,81 +1,129 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_duo_practice/constants/app_colors.dart';
-
-import '../../constants/app_routes.dart';
 import '../../constants/app_text_styles.dart';
-import 'models/profileButtons.dart';
+import 'dialogs/app_details_dialog.dart';
+import 'dialogs/edit_profile_info_dialog.dart';
+import 'models/profile_buttons.dart';
 
-class Profile extends StatelessWidget {
+const _titleText = "Profile page";
+
+class Profile extends StatefulWidget {
   const Profile({super.key});
-  final _titleText = "Profile page";
+
+  @override
+  State<Profile> createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
+  String _profileName = "John Doe";
+  final TextEditingController _userNameController = TextEditingController();
+  final Map<String, bool> _inputStatus = {'isWrongInputName': false};
+
+  Future<void> _openEditProfileDialog(BuildContext context) async {
+    final result = await showDialog<String>(
+      context: context,
+      builder: (BuildContext context) {
+        return ProfileEditDialog(
+          userNameController: _userNameController,
+          inputStatus: _inputStatus,
+          onSave: (newName) {
+            setState(() {
+              _profileName = newName;
+            });
+          },
+        );
+      },
+    );
+    if (result != null && result.isNotEmpty) {
+      setState(() {
+        _profileName = result;
+      });
+    }
+  }
+
+  void showAppDetailsDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return const AppDetailsDialog();
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_titleText),
+        title: const Text(_titleText),
         titleTextStyle: AppTextStyles.title,
         backgroundColor: AppColors.primary,
         centerTitle: true,
       ),
-
-      body: const Column(
+      body: Column(
         children: [
-          UserProfile(),
+          UserProfile(profileName: _profileName),
           Expanded(
-            child: ProfileWidgetsListView(),
-          )
-        ]
+            child: ProfileWidgetsListView(
+              onEditProfile: _openEditProfileDialog,
+              showAppDetailsDialog: showAppDetailsDialog
+            ),
+          ),
+        ],
       ),
     );
   }
 }
 
-class UserProfile extends StatelessWidget{
-  const UserProfile({super.key});
-  final String _defaultName = "John Doe";
+class UserProfile extends StatelessWidget {
+  final String profileName;
+
+  const UserProfile({super.key, required this.profileName});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 20, 20, 50),
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Container(
-              height: 150,
-              decoration: const BoxDecoration(
-                color: AppColors.background,
-                backgroundBlendMode: BlendMode.saturation,
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [AppColors.primary, AppColors.secondary],
-                ),
-                borderRadius: BorderRadius.all(Radius.circular(30)),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Container(
+            height: 150,
+            decoration: const BoxDecoration(
+              color: AppColors.background,
+              backgroundBlendMode: BlendMode.hardLight,
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [AppColors.primary, AppColors.secondary],
               ),
-              alignment: Alignment.center,
+              borderRadius: BorderRadius.all(Radius.circular(30)),
             ),
-            Container(
-              alignment: Alignment.center,
-              child: Text(
-                _defaultName,
-                style: AppTextStyles.title,
-                textAlign: TextAlign.center,
-              ),
+            alignment: Alignment.center,
+          ),
+          Container(
+            alignment: Alignment.center,
+            child: Text(
+              profileName,
+              style: AppTextStyles.title,
+              textAlign: TextAlign.center,
             ),
-          ],
-        )
+          ),
+        ],
+      ),
     );
   }
 }
 
 class ProfileWidgetsListView extends StatelessWidget {
-  const ProfileWidgetsListView({super.key});
+  final Future<void> Function(BuildContext) onEditProfile;
+  final void Function(BuildContext) showAppDetailsDialog;
+
+  const ProfileWidgetsListView({super.key, required this.onEditProfile, required this.showAppDetailsDialog});
 
   static Map<ProfileButtons, String> buttonsLabels = {
-    ProfileButtons.profileDetails: "Profile Details",
-    ProfileButtons.about: "About"
+    ProfileButtons.profileDetails: "Редагувати профіль",
+    ProfileButtons.about: "Про додаток",
   };
 
   @override
@@ -97,7 +145,6 @@ class ProfileWidgetsListView extends StatelessWidget {
           titleTextStyle: AppTextStyles.buttonSecondary,
           tileColor: AppColors.secondary,
           enableFeedback: true,
-
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
@@ -105,19 +152,22 @@ class ProfileWidgetsListView extends StatelessWidget {
             Icons.arrow_forward_ios_rounded,
             color: AppColors.primary,
           ),
-
           onTap: () {
-            switch (button) {
-              case ProfileButtons.profileDetails:
-                Navigator.pushNamed(context, AppRoutes.player);
-                break;
-              case ProfileButtons.about:
-                Navigator.pushNamed(context, AppRoutes.player);
-                break;
-            }
+            switchProfileButtons(button, context);
           },
         );
       },
     );
+  }
+
+  void switchProfileButtons(ProfileButtons button, BuildContext context) {
+    switch (button) {
+      case ProfileButtons.profileDetails:
+        onEditProfile(context);
+        break;
+      case ProfileButtons.about:
+        showAppDetailsDialog(context);
+        break;
+    }
   }
 }
