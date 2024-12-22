@@ -13,7 +13,7 @@ class Profile extends StatelessWidget {
           child: Text("Profile page"),
         )
       ),
-      backgroundColor: AppColors.primary,
+      backgroundColor: AppColors.secondaryBackground,
       body: const Center(
         child: Text("Profile page"),
       ),

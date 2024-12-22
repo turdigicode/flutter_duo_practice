@@ -23,7 +23,7 @@ class SubCategoryDetails extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(subCategory.name),
-        backgroundColor: AppColors.background,
+        backgroundColor: AppColors.primaryBackground,
       ),
       body: Column(
         children: [
@@ -88,7 +88,7 @@ class _MusicListViewState extends State<MusicListView> {
             Navigator.pushNamed(context, AppRoutes.player);
           },
           child: Card(
-            color: AppColors.primary,
+            color: AppColors.secondaryBackground,
             margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             elevation: 4,
             child: Padding(
@@ -97,7 +97,7 @@ class _MusicListViewState extends State<MusicListView> {
                 children: [
                   IconButton(
                     icon: const Icon(Icons.play_circle, size: 40),
-                    color: AppColors.secondary,
+                    color: AppColors.highlight,
                     onPressed: () {
                       //TODO зробити динамічне оновлення при натисканні на кнопку play
                     },
@@ -125,7 +125,7 @@ class _MusicListViewState extends State<MusicListView> {
                       icon,
                       size: 30,
                     ),
-                    color: AppColors.secondary,
+                    color: AppColors.highlight,
                     onPressed: () {
                       setState(() {
                         widget.filteredMusic[index].isLiked =

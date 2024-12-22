@@ -45,13 +45,13 @@ class _HomeState extends State<Home> {
     return Scaffold(
         appBar: AppBar(
           title: Text(_titleText),
-          backgroundColor: AppColors.background,
+          backgroundColor: AppColors.primaryBackground,
           leading: Padding(
             padding: const EdgeInsets.only(left: 20),
             child: Image.network(profileImageSrc),
           ),
         ),
-        backgroundColor: AppColors.background,
+        backgroundColor: AppColors.primaryBackground,
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -90,8 +90,8 @@ class MainCategoriesChips extends StatelessWidget {
               label: Text(mainCategory.name),
               labelStyle: AppTextStyles.title,
               showCheckmark: false,
-              backgroundColor: AppColors.primary,
-              selectedColor: AppColors.secondary,
+              backgroundColor: AppColors.secondaryBackground,
+              selectedColor: AppColors.accent,
               selected: selectedCategory == mainCategory.name,
               onSelected: (bool selected) {
                 onCategorySelected(mainCategory.name);
@@ -127,7 +127,7 @@ class SubCategoriesGridView extends StatelessWidget {
             },
             child: Card(
               elevation: 6,
-              color: AppColors.primary,
+              color: AppColors.secondaryBackground,
               child: Padding(
                 padding: const EdgeInsets.all(0),
                 child: Column(

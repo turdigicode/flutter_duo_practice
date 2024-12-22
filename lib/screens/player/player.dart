@@ -18,7 +18,7 @@ class Player extends StatelessWidget {
             },
             icon: const Icon(Icons.arrow_back)),
       ),
-      backgroundColor: AppColors.primary,
+      backgroundColor: AppColors.secondaryBackground,
       body: const Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

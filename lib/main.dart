@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_duo_practice/constants/app_text_styles.dart';
 import '../constants/app_colors.dart';
 import '../constants/app_routes.dart';
-import '../constants/fonts_constants.dart';
 import '../screens/home/home.dart';
 import '../screens/player/player.dart';
 import '../screens/profile/profile.dart';
@@ -21,8 +20,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         textTheme: TextTheme(titleLarge: AppTextStyles.body),
         colorScheme: ColorScheme.fromSeed(
-            seedColor: AppColors.secondary,
-            surface: AppColors.background
+            seedColor: AppColors.highlight,
+            surface: AppColors.primaryBackground
         ),
         useMaterial3: true,
       ),
@@ -67,7 +66,7 @@ class _MainPageState extends State<MainPage> {
       bottomNavigationBar: BottomNavigationBar(
         unselectedFontSize: 0,
         selectedFontSize: 0,
-        backgroundColor: AppColors.primary,
+        backgroundColor: AppColors.secondaryBackground,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
               icon: Icon(Icons.home, size: 40),
@@ -83,8 +82,8 @@ class _MainPageState extends State<MainPage> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: AppColors.secondary,
-        unselectedItemColor: AppColors.background,
+        selectedItemColor: AppColors.accent,
+        unselectedItemColor: AppColors.highlight,
         onTap: _onItemTapped,
       ),
     );
