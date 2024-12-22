@@ -40,20 +40,27 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
+  bool isPlayerPageOpened = false;
 
   final List<Widget> _screens = [
     const Home(),
     const Player(),
-    const Profile()
+    const Profile(),
   ];
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-      if(_selectedIndex == 1){
-        Navigator.pushNamed(context, AppRoutes.player);
-      }
-    });
+    if (index == 1 && !isPlayerPageOpened) {
+      isPlayerPageOpened = true;
+      Navigator.pushNamed(context, AppRoutes.player).then((_) {
+        setState(() {
+          isPlayerPageOpened = false;
+        });
+      });
+    } else if (index != 1) {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
   }
 
   @override
