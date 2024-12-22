@@ -32,6 +32,7 @@ dependencies:
     sdk: flutter
 
   flutter_bloc: ^8.1.6
+  flutter_launcher_icons: ^0.14.2
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -47,6 +48,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^4.0.0
+  flutter_native_splash: ^2.4.3
 
 # For information on the generic Dart part of this file, see the
 # following screens: https://dart.dev/tools/pub/pubspec
@@ -72,6 +74,17 @@ flutter:
     - assets/images/
     - assets/images/subcategories_backgrounds/
     - assets/music/
+
+
+flutter_native_splash:
+  color: "#081320"
+  color_dark: "#081320"
+
+  android_12:
+    image: assets/images/icon_splash.png
+    icon_background_color: "#081320"
+    image_dark: assets/images/icon_splash.png
+    icon_background_color_dark: "#081320"
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
