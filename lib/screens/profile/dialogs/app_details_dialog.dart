@@ -16,7 +16,7 @@ class AppDetailsDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dialog(
       alignment: Alignment.center,
-      backgroundColor: AppColors.primary,
+      backgroundColor: AppColors.secondaryBackground,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(20)),
       ),

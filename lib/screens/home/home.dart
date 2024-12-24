@@ -111,7 +111,7 @@ class SubCategoriesGridView extends StatelessWidget {
         crossAxisCount: (MediaQuery.of(context).size.width / 150).floor(),
         crossAxisSpacing: 5,
         mainAxisSpacing: 5,
-        mainAxisExtent: 500
+        mainAxisExtent: 600
       ),
       itemCount: filteredSubCategories.length,
       scrollDirection: Axis.vertical,

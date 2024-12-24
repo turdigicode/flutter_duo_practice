@@ -23,7 +23,7 @@ class ProfileEditDialog extends StatelessWidget {
     return Dialog(
       insetPadding: const EdgeInsets.all(10),
       alignment: Alignment.center,
-      backgroundColor: AppColors.primary,
+      backgroundColor: AppColors.secondaryBackground,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(20)),
       ),

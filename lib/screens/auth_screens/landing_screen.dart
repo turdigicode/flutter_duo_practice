@@ -19,7 +19,8 @@ class _LandingScreenState extends State<LandingScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.secondaryBackground,
-        title: Text("Вітаємо", style: AppTextStyles.title), centerTitle: true,
+        title: Text("Вітаємо", style: AppTextStyles.title),
+        centerTitle: true,
       ),
       backgroundColor: AppColors.primaryBackground,
       body: Center(

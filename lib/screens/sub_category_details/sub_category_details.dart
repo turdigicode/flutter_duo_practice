@@ -25,6 +25,13 @@ class SubCategoryDetails extends StatelessWidget {
         backgroundColor: AppColors.primaryBackground,
         titleTextStyle: AppTextStyles.title,
         centerTitle: true,
+        leading: IconButton(
+          color: AppColors.accent,
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back),
+        ),
       ),
       body: Column(
         children: [
@@ -88,13 +95,6 @@ class _MusicListViewState extends State<MusicListView> {
               padding: const EdgeInsets.all(12.0),
               child: Row(
                 children: [
-                  IconButton(
-                    icon: const Icon(Icons.play_circle, size: 40),
-                    color: AppColors.highlight,
-                    onPressed: () {
-                      //TODO зробити динамічне оновлення при натисканні на кнопку play
-                    },
-                  ),
                   const SizedBox(width: 16),
                   Expanded(
                     child: Column(

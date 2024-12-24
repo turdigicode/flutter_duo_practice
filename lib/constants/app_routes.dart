@@ -3,7 +3,6 @@ import 'package:flutter_duo_practice/screens/auth_screens/landing_screen.dart';
 import '../main.dart';
 import '../screens/auth_screens/login_screen.dart';
 import '../screens/auth_screens/registration_screen.dart';
-import '../screens/auth_screens/landing_screen.dart';
 import '../screens/home/home.dart';
 import '../screens/home/models/sub_category.dart';
 import '../screens/player/player.dart';

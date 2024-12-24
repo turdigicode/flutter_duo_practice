@@ -113,11 +113,11 @@ class UserProfile extends StatelessWidget {
             height: 150,
             decoration: const BoxDecoration(
               color: AppColors.secondaryBackground,
-              backgroundBlendMode: BlendMode.hardLight,
+              backgroundBlendMode: BlendMode.softLight,
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [AppColors.primary, AppColors.secondary],
+                colors: [AppColors.accent, AppColors.highlight],
               ),
               borderRadius: BorderRadius.all(Radius.circular(30)),
             ),
@@ -177,14 +177,14 @@ class ProfileWidgetsListView extends StatelessWidget {
         return ListTile(
           title: Text(label!),
           titleTextStyle: AppTextStyles.buttonSecondary,
-          tileColor: AppColors.secondary,
+          tileColor: AppColors.highlight,
           enableFeedback: true,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
           leading: const Icon(
             Icons.arrow_forward_ios_rounded,
-            color: AppColors.primary,
+            color: AppColors.secondaryBackground,
           ),
           onTap: () {
             switchProfileButtons(button, context);

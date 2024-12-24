@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import '../../constants/app_colors.dart';
+import '../../constants/app_routes.dart';
 import '../../constants/app_text_styles.dart';
 
 late InAppWebViewController webViewController;
@@ -15,8 +16,15 @@ class InnerBrowser extends StatelessWidget {
       appBar: AppBar(
         title: const Text(_titleText),
         titleTextStyle: AppTextStyles.title,
-        backgroundColor: AppColors.primary,
+        backgroundColor: AppColors.secondaryBackground,
         centerTitle: true,
+        leading: IconButton(
+          color: AppColors.accent,
+          onPressed: () {
+            Navigator.pushNamedAndRemoveUntil(context, AppRoutes.main, (route) => false);
+          },
+          icon: const Icon(Icons.arrow_back),
+        ),
       ),
       body: InAppWebView(
         initialUrlRequest: URLRequest(url: _url),

@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_duo_practice/constants/app_colors.dart';
 import 'package:flutter_duo_practice/constants/app_images_paths.dart';
 import 'package:flutter_duo_practice/constants/app_music_paths.dart';
-import 'package:flutter_duo_practice/screens/sub_category_details/mocks/PlaylistSong.mocks.dart';
 import 'package:just_audio/just_audio.dart';
 import '../../constants/app_routes.dart';
 import '../../constants/app_text_styles.dart';
+import '../sub_category_details/mocks/playlist_song.mocks.dart';
+
+const String _titleText = "Player";
 
 class Player extends StatefulWidget {
   const Player({super.key});
-  final String _titleText = "Player";
 
   @override
   State<Player> createState() => _PlayerState();
@@ -32,11 +33,7 @@ class _PlayerState extends State<Player> {
   }
 
   Future<void> _init() async {
-    try {
-      await _audioPlayer.setAsset(_song);
-    } catch (e) {
-      print("Error: loading audio source unable: $e");
-    }
+    await _audioPlayer.setAsset(_song);
   }
 
   void _updateSong() {
@@ -53,8 +50,6 @@ class _PlayerState extends State<Player> {
     if (_songIndex < AppMusicPaths.allPaths.length - 1) {
       _songIndex++;
       _updateSong();
-    } else {
-      print("No more songs.");
     }
   }
 
@@ -62,8 +57,6 @@ class _PlayerState extends State<Player> {
     if (_songIndex > 0) {
       _songIndex--;
       _updateSong();
-    } else {
-      print("Already at the first song.");
     }
   }
 
@@ -77,11 +70,12 @@ class _PlayerState extends State<Player> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_titleText),
+        title: const Text(_titleText),
         titleTextStyle: AppTextStyles.title,
         backgroundColor: AppColors.secondaryBackground,
         centerTitle: true,
         leading: IconButton(
+          color: AppColors.accent,
           onPressed: () {
             Navigator.pushNamedAndRemoveUntil(context, AppRoutes.main, (route) => false);
           },
