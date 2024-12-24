@@ -1,5 +1,6 @@
 class AppImagesPaths{
   static const String plantPicture = 'assets/images/plant_picture.png';
+  static const String placeholder = 'assets/images/placeholder.jpg';
 
   //#region subCategoriesBackgrounds
   static const String backgroundASMR = 'assets/images/subcategories_backgrounds/asmr.png';

@@ -123,7 +123,7 @@ class SubCategoriesGridView extends StatelessWidget {
           },
           child: Card(
             elevation: 6,
-            color: AppColors.primary,
+            color: AppColors.secondaryBackground,
             child: Padding(
               padding: const EdgeInsets.all(0),
               child: Column(

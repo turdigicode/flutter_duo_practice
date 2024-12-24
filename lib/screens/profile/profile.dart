@@ -79,7 +79,7 @@ class _ProfileState extends State<Profile> {
       appBar: AppBar(
         title: const Text(_titleText),
         titleTextStyle: AppTextStyles.title,
-        backgroundColor: AppColors.primary,
+        backgroundColor: AppColors.secondaryBackground,
         centerTitle: true,
       ),
       body: Column(
