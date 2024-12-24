@@ -17,8 +17,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final String _defaultCategory = "All";
   final String _titleText = "Home page";
-  final String profileImageSrc =
-      "https://avatars.githubusercontent.com/u/120330210?v=4";
   late String _selectedCategory;
   late List<SubCategory> filteredSubCategories;
 
@@ -47,10 +45,6 @@ class _HomeState extends State<Home> {
           backgroundColor: AppColors.primaryBackground,
           titleTextStyle: AppTextStyles.title,
           centerTitle: true,
-          leading: Padding(
-            padding: const EdgeInsets.only(left: 20),
-            child: Image.network(profileImageSrc),
-          ),
         ),
         backgroundColor: AppColors.primaryBackground,
         body: Column(

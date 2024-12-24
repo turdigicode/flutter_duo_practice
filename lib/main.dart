@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_duo_practice/constants/app_text_styles.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/app_colors.dart';
 import '../constants/app_routes.dart';
 import '../screens/home/home.dart';
@@ -7,15 +8,19 @@ import '../screens/profile/profile.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'screens/player/player.dart';
 
-void main() {
+void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
 
-  runApp(const MyApp());
+  runApp(MyApp(isLoggedIn: isLoggedIn));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final bool isLoggedIn;
+  const MyApp({super.key, required this.isLoggedIn});
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +29,20 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         textTheme: TextTheme(titleLarge: AppTextStyles.body),
         colorScheme: ColorScheme.fromSeed(
-            seedColor: AppColors.highlight,
-            surface: AppColors.primaryBackground
+          seedColor: AppColors.highlight,
+          surface: AppColors.primaryBackground
         ),
         useMaterial3: true,
       ),
-      initialRoute: AppRoutes.main,
+      onGenerateInitialRoutes: (String initialRoute) {
+        return [
+          AppRoutes.onGenerateRoute(
+            RouteSettings(
+              name: isLoggedIn ? AppRoutes.main : AppRoutes.landingScreen,
+            ),
+          )!,
+        ];
+      },
       onGenerateRoute: AppRoutes.onGenerateRoute,
     );
   }
@@ -85,8 +98,8 @@ class _MainPageState extends State<MainPage> {
               label: ""
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.play_circle_rounded, size: 70),
-              label: "",
+            icon: Icon(Icons.play_circle_rounded, size: 70),
+            label: "",
           ),
           BottomNavigationBarItem(
               icon: Icon(Icons.account_circle_rounded, size: 40),

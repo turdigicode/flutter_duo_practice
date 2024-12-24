@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_duo_practice/constants/app_text_styles.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../constants/app_button_styles.dart';
 import '../../../constants/app_colors.dart';
 import '../../auth_screens/forms/custom_fields/custom_text_field.dart';
@@ -70,10 +71,13 @@ class ProfileEditDialog extends StatelessWidget {
     );
   }
 
-  void checkInputName(BuildContext context) {
+  void checkInputName(BuildContext context) async {
     final errorMessage = NameValidator.validate(userNameController.text, inputStatus);
     if (inputStatus['isWrongInputName'] == false) {
-      Navigator.of(context).pop(userNameController.text);
+      String newName = userNameController.text;
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('userName', newName);
+      Navigator.of(context).pop(newName);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(errorMessage ?? '')),

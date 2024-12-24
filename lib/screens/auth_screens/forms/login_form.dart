@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_duo_practice/constants/app_button_styles.dart';
 import 'package:flutter_duo_practice/constants/app_form_styles.dart';
-
-
+import 'package:flutter_duo_practice/screens/auth_screens/user_interaction/user_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../../constants/app_routes.dart';
 import '../../../constants/app_spacing.dart';
 import 'custom_fields/custom_password_field.dart';
 import 'custom_fields/custom_text_field.dart';
@@ -21,20 +22,16 @@ class LoginForm extends StatefulWidget {
 class LoginFormState extends State<LoginForm> {
   final appFormStyles = AppFormStyles();
   final _formKey = GlobalKey<FormState>();
-
   final Map<String, bool> _inputStatus = {
     'isWrongInputEmail': false,
     'isWrongInputPassword': false,
     'isObscured': true,
   };
 
-  final Map<String, String> _userData = {
-    'userEmail': 'null',
-    'userPassword': 'null',
-  };
-
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  final UserService _userStorage = UserService();
 
   void _toggleVisibility() {
     setState(() {
@@ -42,17 +39,25 @@ class LoginFormState extends State<LoginForm> {
     });
   }
 
-  void _onLoginPressed(){
-    setState(() {});
+  void _onLoginPressed() async {
     if (_formKey.currentState!.validate()) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Processing Data')),
-      );
+      String email = _emailController.text;
+      String password = _passwordController.text;
+
+      var user = await _userStorage.getUserByEmailPassword(email, password);
+
+      if (user != null) {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString('userEmail', user.email);
+        prefs.setString('userName', user.name);
+        prefs.setBool('isLoggedIn', true);
+        Navigator.pushReplacementNamed(context, AppRoutes.main);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Невірні дані для входу')),
+        );
+      }
     }
-    setState(() {
-      _userData['userEmail'] = _emailController.text;
-      _userData['userPassword'] = _passwordController.text;
-    });
   }
 
   @override
@@ -65,30 +70,22 @@ class LoginFormState extends State<LoginForm> {
           key: _formKey,
           child: Column(
             children: <Widget>[
-
-              //Email Field
               CustomTextField(
-                  labelText: "Введіть Вашу пошту",
-                  validator: (value) => EmailValidator.validate(value, _inputStatus),
-                  controller: _emailController,
-                  isError: _inputStatus['isWrongInputEmail'] ?? false,
+                labelText: "Введіть Вашу пошту",
+                validator: (value) => EmailValidator.validate(value, _inputStatus),
+                controller: _emailController,
+                isError: _inputStatus['isWrongInputEmail'] ?? false,
               ),
-
               const SizedBox(height: AppSpacing.medium),
-
-              //Password Field
               CustomPasswordField(
-                  labelText: "Введіть Ваш пароль",
-                  validator: (value) => PasswordValidator.validate(value, _inputStatus),
-                  controller: _passwordController,
-                  isError: _inputStatus['isWrongInputPassword'] ?? false,
-                  isObscured: _inputStatus['isObscured'] ?? false,
-                  onVisibilityToggle: _toggleVisibility,
+                labelText: "Введіть Ваш пароль",
+                validator: (value) => PasswordValidator.validate(value, _inputStatus),
+                controller: _passwordController,
+                isError: _inputStatus['isWrongInputPassword'] ?? false,
+                isObscured: _inputStatus['isObscured'] ?? false,
+                onVisibilityToggle: _toggleVisibility,
               ),
-
               const SizedBox(height: AppSpacing.medium),
-
-              //Confirmation Button
               ElevatedButton(
                 onPressed: _onLoginPressed,
                 style: AppButtonStyles.primary,

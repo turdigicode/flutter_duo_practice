@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_duo_practice/constants/app_colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../constants/app_text_styles.dart';
 import 'dialogs/app_details_dialog.dart';
 import 'dialogs/edit_profile_info_dialog.dart';
@@ -19,17 +20,32 @@ class _ProfileState extends State<Profile> {
   final TextEditingController _userNameController = TextEditingController();
   final Map<String, bool> _inputStatus = {'isWrongInputName': false};
 
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+  }
+
+  void _loadUserData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _profileName = prefs.getString('userName') ?? "New user";
+    });
+  }
+
   Future<void> _openEditProfileDialog(BuildContext context) async {
+    _userNameController.text = _profileName;
     final result = await showDialog<String>(
       context: context,
       builder: (BuildContext context) {
         return ProfileEditDialog(
           userNameController: _userNameController,
           inputStatus: _inputStatus,
-          onSave: (newName) {
+          onSave: (newName) async {
             setState(() {
               _profileName = newName;
             });
+            await _saveNewUserName(newName);
           },
         );
       },
@@ -38,7 +54,13 @@ class _ProfileState extends State<Profile> {
       setState(() {
         _profileName = result;
       });
+      await _saveNewUserName(result);
     }
+  }
+
+  Future<void> _saveNewUserName(String newName) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('userName', newName);
   }
 
   void showAppDetailsDialog(BuildContext context) {
@@ -66,7 +88,7 @@ class _ProfileState extends State<Profile> {
           Expanded(
             child: ProfileWidgetsListView(
               onEditProfile: _openEditProfileDialog,
-              showAppDetailsDialog: showAppDetailsDialog
+              showAppDetailsDialog: showAppDetailsDialog,
             ),
           ),
         ],
@@ -126,6 +148,17 @@ class ProfileWidgetsListView extends StatelessWidget {
     ProfileButtons.about: "Про додаток",
   };
 
+  void switchProfileButtons(ProfileButtons button, BuildContext context) {
+    switch (button) {
+      case ProfileButtons.profileDetails:
+        onEditProfile(context);
+        break;
+      case ProfileButtons.about:
+        showAppDetailsDialog(context);
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
@@ -159,16 +192,5 @@ class ProfileWidgetsListView extends StatelessWidget {
         );
       },
     );
-  }
-
-  void switchProfileButtons(ProfileButtons button, BuildContext context) {
-    switch (button) {
-      case ProfileButtons.profileDetails:
-        onEditProfile(context);
-        break;
-      case ProfileButtons.about:
-        showAppDetailsDialog(context);
-        break;
-    }
   }
 }
