@@ -14,7 +14,7 @@ class Player extends StatelessWidget {
       appBar: AppBar(
         title: Text(_titleText),
         titleTextStyle: AppTextStyles.title,
-        backgroundColor: AppColors.background,
+        backgroundColor: AppColors.secondaryBackground,
         centerTitle: true,
         leading:
           IconButton(
@@ -23,8 +23,8 @@ class Player extends StatelessWidget {
             },
             icon: const Icon(Icons.arrow_back)),
       ),
-      backgroundColor: AppColors.primary,
-      body: Center(
+      backgroundColor: AppColors.primaryBackground,
+      body: const Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

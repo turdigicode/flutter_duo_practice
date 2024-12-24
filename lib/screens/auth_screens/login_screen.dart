@@ -18,10 +18,10 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.primary,
-        title: Text("Увійти", style: AppTextStyles.title),
+        backgroundColor: AppColors.secondaryBackground,
+        title: Text("Увійти", style: AppTextStyles.title), centerTitle: true,
       ),
-      backgroundColor: AppColors.background,
+      backgroundColor: AppColors.primaryBackground,
       body: Center(
           child: SingleChildScrollView(
             child: Column(

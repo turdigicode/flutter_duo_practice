@@ -112,7 +112,7 @@ class UserProfile extends StatelessWidget {
           Container(
             height: 150,
             decoration: const BoxDecoration(
-              color: AppColors.background,
+              color: AppColors.secondaryBackground,
               backgroundBlendMode: BlendMode.hardLight,
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
@@ -163,9 +163,10 @@ class ProfileWidgetsListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.separated(
       separatorBuilder: (context, index) => const Divider(
-        color: AppColors.secondary,
+        color: AppColors.secondaryBackground,
         height: 30,
         thickness: 3,
+
       ),
       itemCount: buttonsLabels.length,
       padding: const EdgeInsets.symmetric(horizontal: 20),

@@ -5,9 +5,12 @@ import '../constants/app_colors.dart';
 import '../constants/app_routes.dart';
 import '../screens/home/home.dart';
 import '../screens/profile/profile.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'screens/player/player.dart';
 
 void main() async {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
@@ -26,7 +29,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         textTheme: TextTheme(titleLarge: AppTextStyles.body),
         colorScheme: ColorScheme.fromSeed(
-            seedColor: AppColors.secondary, surface: AppColors.background),
+          seedColor: AppColors.highlight,
+          surface: AppColors.primaryBackground
+        ),
         useMaterial3: true,
       ),
       onGenerateInitialRoutes: (String initialRoute) {
@@ -77,6 +82,7 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    FlutterNativeSplash.remove();
     return Scaffold(
       body: IndexedStack(
         index: _selectedIndex,
@@ -85,7 +91,7 @@ class _MainPageState extends State<MainPage> {
       bottomNavigationBar: BottomNavigationBar(
         unselectedFontSize: 0,
         selectedFontSize: 0,
-        backgroundColor: AppColors.primary,
+        backgroundColor: AppColors.secondaryBackground,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
               icon: Icon(Icons.home, size: 40),
@@ -101,8 +107,8 @@ class _MainPageState extends State<MainPage> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: AppColors.secondary,
-        unselectedItemColor: AppColors.background,
+        selectedItemColor: AppColors.accent,
+        unselectedItemColor: AppColors.highlight,
         onTap: _onItemTapped,
       ),
     );

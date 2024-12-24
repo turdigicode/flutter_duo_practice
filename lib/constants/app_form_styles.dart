@@ -17,7 +17,7 @@ class AppFormStyles{
     return InputDecoration(
       labelText: labelText,
       labelStyle: TextStyle(
-        color: isError ? AppColors.error : AppColors.secondary,
+        color: isError ? AppColors.error : AppColors.highlight,
         fontWeight: FontWeight.bold,
         fontFamily: AppFonts.fontFamily
       ),
@@ -48,7 +48,7 @@ class AppFormStyles{
       suffixIcon: IconButton(
         icon: Icon(
           isObscured ? Icons.visibility_off : Icons.visibility,
-          color: isError ? AppColors.error : AppColors.secondary,
+          color: isError ? AppColors.error : AppColors.highlight,
         ),
         onPressed: onVisibilityToggle,
       ),
@@ -57,14 +57,14 @@ class AppFormStyles{
 
   static final OutlineInputBorder _defaultBorder = _base.copyWith(
     borderSide: const BorderSide(
-      color: AppColors.secondary,
+      color: AppColors.highlight,
       width: 1.0,
     ),
   );
 
   static final OutlineInputBorder _focusedBorder = _base.copyWith(
     borderSide: const BorderSide(
-      color: AppColors.secondary,
+      color: AppColors.highlight,
       width: 3.0,
     ),
   );

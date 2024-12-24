@@ -18,10 +18,10 @@ class _LandingScreenState extends State<LandingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.primary,
-        title: Text("Вітаємо", style: AppTextStyles.title),
+        backgroundColor: AppColors.secondaryBackground,
+        title: Text("Вітаємо", style: AppTextStyles.title), centerTitle: true,
       ),
-      backgroundColor: AppColors.background,
+      backgroundColor: AppColors.primaryBackground,
       body: Center(
           child: SingleChildScrollView(
             child: Column(

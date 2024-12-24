@@ -12,18 +12,18 @@ class AppButtonStyles{
   );
 
   static final ButtonStyle primary = _base.copyWith(
-    backgroundColor: WidgetStateProperty.all(AppColors.secondary),
+    backgroundColor: WidgetStateProperty.all(AppColors.highlight),
     foregroundColor: WidgetStateProperty.all(AppColors.secondaryText),
     textStyle: WidgetStateProperty.all(AppTextStyles.buttonPrimary),
   );
 
   static final ButtonStyle secondary = _base.copyWith(
-    backgroundColor: WidgetStateProperty.all(AppColors.background),
-    foregroundColor: WidgetStateProperty.all(AppColors.secondary),
+    backgroundColor: WidgetStateProperty.all(AppColors.primaryBackground),
+    foregroundColor: WidgetStateProperty.all(AppColors.highlight),
     textStyle: WidgetStateProperty.all(AppTextStyles.buttonSecondary),
     side: WidgetStateProperty.all(
       const BorderSide(
-        color: AppColors.secondary,
+        color: AppColors.highlight,
         width: 2.0,
         style: BorderStyle.solid,
       ),

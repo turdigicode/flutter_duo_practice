@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_duo_practice/constants/app_text_styles.dart';
 import 'package:flutter_duo_practice/screens/sub_category_details/mocks/playlist_song.mocks.dart';
 import 'package:flutter_duo_practice/screens/sub_category_details/models/playlist_song.dart';
-
 import '../../constants/app_colors.dart';
 import '../../constants/app_routes.dart';
 import '../home/models/sub_category.dart';
@@ -23,7 +22,7 @@ class SubCategoryDetails extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(subCategory.name),
-        backgroundColor: AppColors.background,
+        backgroundColor: AppColors.primaryBackground,
         titleTextStyle: AppTextStyles.title,
         centerTitle: true,
       ),
@@ -82,7 +81,7 @@ class _MusicListViewState extends State<MusicListView> {
             Navigator.pushNamed(context, AppRoutes.player);
           },
           child: Card(
-            color: AppColors.primary,
+            color: AppColors.secondaryBackground,
             margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             elevation: 4,
             child: Padding(
@@ -91,7 +90,7 @@ class _MusicListViewState extends State<MusicListView> {
                 children: [
                   IconButton(
                     icon: const Icon(Icons.play_circle, size: 40),
-                    color: AppColors.secondary,
+                    color: AppColors.highlight,
                     onPressed: () {
                       //TODO зробити динамічне оновлення при натисканні на кнопку play
                     },
@@ -119,7 +118,7 @@ class _MusicListViewState extends State<MusicListView> {
                       changeLikedIcon(song.isLiked),
                       size: 30,
                     ),
-                    color: AppColors.secondary,
+                    color: AppColors.highlight,
                     onPressed: () {
                       toggleLikedState(index);
                     },

@@ -40,31 +40,25 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(_titleText),
-        backgroundColor: AppColors.background,
-        titleTextStyle: AppTextStyles.title,
-        centerTitle: true,
-        // leading: Padding(
-        //   padding: const EdgeInsets.only(left: 20),
-        // ),
-      ),
-      backgroundColor: AppColors.background,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          MainCategoriesChips(
-            selectedCategory: _selectedCategory,
-            mainCategories: mainCategories,
-            onCategorySelected: selectCategory
-          ),
-          Expanded(
-            child: SubCategoriesGridView(
-              filteredSubCategories: filteredSubCategories)
-          )
-        ],
-      )
-    );
+        appBar: AppBar(
+          title: Text(_titleText),
+          backgroundColor: AppColors.primaryBackground,
+          titleTextStyle: AppTextStyles.title,
+          centerTitle: true,
+        ),
+        backgroundColor: AppColors.primaryBackground,
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            MainCategoriesChips(
+                selectedCategory: _selectedCategory,
+                mainCategories: mainCategories,
+                onCategorySelected: selectCategory),
+            Expanded(
+                child: SubCategoriesGridView(
+                    filteredSubCategories: filteredSubCategories))
+          ],
+        ));
   }
 }
 
@@ -91,8 +85,8 @@ class MainCategoriesChips extends StatelessWidget {
               label: Text(mainCategory.name),
               labelStyle: AppTextStyles.buttonPrimary,
               showCheckmark: false,
-              backgroundColor: AppColors.primary,
-              selectedColor: AppColors.secondary,
+              backgroundColor: AppColors.secondaryBackground,
+              selectedColor: AppColors.accent,
               selected: selectedCategory == mainCategory.name,
               onSelected: (bool selected) {
                 onCategorySelected(mainCategory.name);
