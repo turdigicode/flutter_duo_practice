@@ -3,9 +3,9 @@ import 'package:flutter_duo_practice/constants/app_text_styles.dart';
 import '../constants/app_colors.dart';
 import '../constants/app_routes.dart';
 import '../screens/home/home.dart';
-import '../screens/player/player.dart';
 import '../screens/profile/profile.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'screens/player/player.dart';
 
 void main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
