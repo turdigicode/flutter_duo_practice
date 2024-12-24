@@ -29,21 +29,23 @@ class _ProfileState extends State<Profile> {
   void _loadUserData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      _profileName = prefs.getString('userName') ?? "John Doe";
+      _profileName = prefs.getString('userName') ?? "New user";
     });
   }
 
   Future<void> _openEditProfileDialog(BuildContext context) async {
+    _userNameController.text = _profileName;
     final result = await showDialog<String>(
       context: context,
       builder: (BuildContext context) {
         return ProfileEditDialog(
           userNameController: _userNameController,
           inputStatus: _inputStatus,
-          onSave: (newName) {
+          onSave: (newName) async {
             setState(() {
               _profileName = newName;
             });
+            await _saveNewUserName(newName);
           },
         );
       },
@@ -52,7 +54,13 @@ class _ProfileState extends State<Profile> {
       setState(() {
         _profileName = result;
       });
+      await _saveNewUserName(result);
     }
+  }
+
+  Future<void> _saveNewUserName(String newName) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('userName', newName);
   }
 
   void showAppDetailsDialog(BuildContext context) {
@@ -140,6 +148,17 @@ class ProfileWidgetsListView extends StatelessWidget {
     ProfileButtons.about: "Про додаток",
   };
 
+  void switchProfileButtons(ProfileButtons button, BuildContext context) {
+    switch (button) {
+      case ProfileButtons.profileDetails:
+        onEditProfile(context);
+        break;
+      case ProfileButtons.about:
+        showAppDetailsDialog(context);
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
@@ -172,16 +191,5 @@ class ProfileWidgetsListView extends StatelessWidget {
         );
       },
     );
-  }
-
-  void switchProfileButtons(ProfileButtons button, BuildContext context) {
-    switch (button) {
-      case ProfileButtons.profileDetails:
-        onEditProfile(context);
-        break;
-      case ProfileButtons.about:
-        showAppDetailsDialog(context);
-        break;
-    }
   }
 }
