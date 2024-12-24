@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_duo_practice/constants/app_colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../constants/app_text_styles.dart';
 import 'dialogs/app_details_dialog.dart';
 import 'dialogs/edit_profile_info_dialog.dart';
@@ -18,6 +19,19 @@ class _ProfileState extends State<Profile> {
   String _profileName = "John Doe";
   final TextEditingController _userNameController = TextEditingController();
   final Map<String, bool> _inputStatus = {'isWrongInputName': false};
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+  }
+
+  void _loadUserData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _profileName = prefs.getString('userName') ?? "John Doe";
+    });
+  }
 
   Future<void> _openEditProfileDialog(BuildContext context) async {
     final result = await showDialog<String>(
@@ -66,7 +80,7 @@ class _ProfileState extends State<Profile> {
           Expanded(
             child: ProfileWidgetsListView(
               onEditProfile: _openEditProfileDialog,
-              showAppDetailsDialog: showAppDetailsDialog
+              showAppDetailsDialog: showAppDetailsDialog,
             ),
           ),
         ],

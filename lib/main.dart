@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_duo_practice/constants/app_text_styles.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/app_colors.dart';
 import '../constants/app_routes.dart';
 import '../screens/home/home.dart';
 import '../screens/profile/profile.dart';
 import 'screens/player/player.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+
+  runApp(MyApp(isLoggedIn: isLoggedIn));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final bool isLoggedIn;
+  const MyApp({super.key, required this.isLoggedIn});
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +26,18 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         textTheme: TextTheme(titleLarge: AppTextStyles.body),
         colorScheme: ColorScheme.fromSeed(
-            seedColor: AppColors.secondary,
-            surface: AppColors.background
-        ),
+            seedColor: AppColors.secondary, surface: AppColors.background),
         useMaterial3: true,
       ),
-      initialRoute: AppRoutes.main,
+      onGenerateInitialRoutes: (String initialRoute) {
+        return [
+          AppRoutes.onGenerateRoute(
+            RouteSettings(
+              name: isLoggedIn ? AppRoutes.main : AppRoutes.landingScreen,
+            ),
+          )!,
+        ];
+      },
       onGenerateRoute: AppRoutes.onGenerateRoute,
     );
   }
@@ -80,8 +92,8 @@ class _MainPageState extends State<MainPage> {
               label: ""
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.play_circle_rounded, size: 70),
-              label: "",
+            icon: Icon(Icons.play_circle_rounded, size: 70),
+            label: "",
           ),
           BottomNavigationBarItem(
               icon: Icon(Icons.account_circle_rounded, size: 40),

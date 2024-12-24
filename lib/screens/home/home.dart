@@ -17,8 +17,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final String _defaultCategory = "All";
   final String _titleText = "Home page";
-  final String profileImageSrc =
-      "https://avatars.githubusercontent.com/u/120330210?v=4";
   late String _selectedCategory;
   late List<SubCategory> filteredSubCategories;
 
@@ -47,10 +45,9 @@ class _HomeState extends State<Home> {
         backgroundColor: AppColors.background,
         titleTextStyle: AppTextStyles.title,
         centerTitle: true,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 20),
-          child: Image.network(profileImageSrc),
-        ),
+        // leading: Padding(
+        //   padding: const EdgeInsets.only(left: 20),
+        // ),
       ),
       backgroundColor: AppColors.background,
       body: Column(
@@ -120,7 +117,7 @@ class SubCategoriesGridView extends StatelessWidget {
         crossAxisCount: (MediaQuery.of(context).size.width / 150).floor(),
         crossAxisSpacing: 5,
         mainAxisSpacing: 5,
-        mainAxisExtent: 350
+        mainAxisExtent: 500
       ),
       itemCount: filteredSubCategories.length,
       scrollDirection: Axis.vertical,

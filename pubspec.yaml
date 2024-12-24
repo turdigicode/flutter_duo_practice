@@ -11,9 +11,10 @@ dependencies:
   flutter:
     sdk: flutter
 
-  flutter_bloc: ^8.1.6
-  cupertino_icons: ^1.0.8
   flutter_inappwebview: ^6.1.5
+  shared_preferences: ^2.3.4
+  path_provider: ^2.0.12
+  json_annotation: ^4.8.0
 
 dev_dependencies:
   flutter_test:
@@ -41,3 +42,4 @@ flutter:
     - assets/images/
     - assets/images/subcategories_backgrounds/
     - assets/music/
+    - assets/users/users.json

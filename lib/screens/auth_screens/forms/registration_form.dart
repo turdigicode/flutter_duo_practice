@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_duo_practice/constants/app_button_styles.dart';
 import 'package:flutter_duo_practice/constants/app_form_styles.dart';
+import '../../../constants/app_routes.dart';
 import '../../../constants/app_spacing.dart';
+import '../models/user.dart';
+import '../user_interaction/user_service.dart';
 import 'custom_fields/custom_password_field.dart';
 import 'custom_fields/custom_text_field.dart';
 import 'input_validators/email_validator.dart';
@@ -39,23 +42,33 @@ class RegistrationFormState extends State<RegistrationForm> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  final UserService _userStorage = UserService();
+
   void _toggleVisibility() {
     setState(() {
       _inputStatus['isObscured'] = !_inputStatus['isObscured']!;
     });
   }
 
-  void _onRegisterPressed(){
-    setState(() {});
+  void _onRegisterPressed() async {
     if (_formKey.currentState!.validate()) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Processing Data')),
-      );
-      setState(() {
-        _userData['userName'] = _userNameController.text;
-        _userData['userEmail'] = _emailController.text;
-        _userData['userPassword'] = _passwordController.text;
-      });
+      try {
+        User newUser = User(
+          email: _emailController.text,
+          password: _passwordController.text,
+          name: _userNameController.text,
+        );
+        await _userStorage.addUser(newUser);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Реєстрація успішна!')),
+        );
+
+        Navigator.pushReplacementNamed(context, AppRoutes.landingScreen);
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(e.toString())),
+        );
+      }
     }
   }
 
@@ -72,9 +85,10 @@ class RegistrationFormState extends State<RegistrationForm> {
 
               //Name Field
               CustomTextField(
-                  labelText: "Введіть Ваше ім'я",
-                  validator: (value) => NameValidator.validate(value, _inputStatus),
-                  isError: _inputStatus['isWrongInputName'] ?? false,
+                labelText: "Введіть Ваше ім'я",
+                validator: (value) => NameValidator.validate(value, _inputStatus),
+                isError: _inputStatus['isWrongInputName'] ?? false,
+                controller: _userNameController,
               ),
 
               const SizedBox(height: AppSpacing.medium),
@@ -98,6 +112,7 @@ class RegistrationFormState extends State<RegistrationForm> {
                 },
                 isError: _inputStatus['isWrongInputPassword'] ?? false,
                 isObscured: _inputStatus['isObscured'] ?? false,
+                controller: _passwordController,
                 onVisibilityToggle: _toggleVisibility,
               ),
 
@@ -105,7 +120,7 @@ class RegistrationFormState extends State<RegistrationForm> {
 
               //Password Confirmation Field
               CustomPasswordField(
-                labelText: "Введіть Ваш пароль",
+                labelText: "Повторіть пароль",
                 validator: (value) => PasswordValidator.compare(value, _userData['password'], _inputStatus),
                 isError: _inputStatus['isWrongInputPasswordConfirmation'] ?? false,
                 isObscured: _inputStatus['isObscured'] ?? false,
