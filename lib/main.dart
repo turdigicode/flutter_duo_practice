@@ -3,8 +3,8 @@ import 'package:flutter_duo_practice/constants/app_text_styles.dart';
 import '../constants/app_colors.dart';
 import '../constants/app_routes.dart';
 import '../screens/home/home.dart';
-import '../screens/player/player.dart';
 import '../screens/profile/profile.dart';
+import 'screens/player/player.dart';
 
 void main() {
   runApp(const MyApp());
@@ -81,7 +81,7 @@ class _MainPageState extends State<MainPage> {
           ),
           BottomNavigationBarItem(
               icon: Icon(Icons.play_circle_rounded, size: 70),
-              label: ""
+              label: "",
           ),
           BottomNavigationBarItem(
               icon: Icon(Icons.account_circle_rounded, size: 40),

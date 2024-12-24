@@ -9,6 +9,7 @@ import '../../constants/app_text_styles.dart';
 
 class Player extends StatefulWidget {
   const Player({super.key});
+  final String _titleText = "Player";
 
   @override
   State<Player> createState() => _PlayerState();
@@ -77,7 +78,7 @@ class _PlayerState extends State<Player> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Player",
+          _titleText,
           style: AppTextStyles.title,
         ),
         backgroundColor: AppColors.secondaryBackground,
@@ -179,4 +180,3 @@ class _PlayerState extends State<Player> {
     );
   }
 }
-

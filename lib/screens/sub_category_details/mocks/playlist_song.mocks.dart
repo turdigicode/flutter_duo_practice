@@ -1,6 +1,6 @@
 import '../../../constants/app_music_paths.dart';
 import '../../home/mocks/sub_category.mocks.dart';
-import '../models/PlaylistSong.dart';
+import '../models/playlist_song.dart';
 
 final List<PlaylistSong> playlistSongs = [
   PlaylistSong(name: "Music_name1", duration: "2.30", isLiked: false, pathToMusic: AppMusicPaths.calmSoul,
