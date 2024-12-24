@@ -77,10 +77,8 @@ class _PlayerState extends State<Player> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          _titleText,
-          style: AppTextStyles.title,
-        ),
+        title: Text(_titleText),
+        titleTextStyle: AppTextStyles.title,
         backgroundColor: AppColors.secondaryBackground,
         centerTitle: true,
         leading: IconButton(

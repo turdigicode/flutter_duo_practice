@@ -30,6 +30,8 @@ class AppRoutes {
               return const Player();
             case profile:
               return const Profile();
+            case landingScreen:
+              return const LandingScreen();
             case subCategoryDetails:
               final subCategory = settings.arguments as SubCategory;
               return SubCategoryDetails(subCategory: subCategory);

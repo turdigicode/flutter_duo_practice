@@ -42,32 +42,29 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(_titleText),
-        backgroundColor: AppColors.primaryBackground,
-        titleTextStyle: AppTextStyles.title,
-        centerTitle: true,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 20),
-          child: Image.network(profileImageSrc),
-        ),
-      ),
-      backgroundColor: AppColors.primaryBackground,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          MainCategoriesChips(
-            selectedCategory: _selectedCategory,
-            mainCategories: mainCategories,
-            onCategorySelected: selectCategory
+        appBar: AppBar(
+          title: Text(_titleText),
+          backgroundColor: AppColors.primaryBackground,
+          titleTextStyle: AppTextStyles.title,
+          centerTitle: true,
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 20),
+            child: Image.network(profileImageSrc),
           ),
-          Expanded(
-            child: SubCategoriesGridView(
-              filteredSubCategories: filteredSubCategories)
-          )
-        ],
-      )
-    );
+        ),
+        backgroundColor: AppColors.primaryBackground,
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            MainCategoriesChips(
+                selectedCategory: _selectedCategory,
+                mainCategories: mainCategories,
+                onCategorySelected: selectCategory),
+            Expanded(
+                child: SubCategoriesGridView(
+                    filteredSubCategories: filteredSubCategories))
+          ],
+        ));
   }
 }
 
@@ -120,7 +117,7 @@ class SubCategoriesGridView extends StatelessWidget {
         crossAxisCount: (MediaQuery.of(context).size.width / 150).floor(),
         crossAxisSpacing: 5,
         mainAxisSpacing: 5,
-        mainAxisExtent: 350
+        mainAxisExtent: 500
       ),
       itemCount: filteredSubCategories.length,
       scrollDirection: Axis.vertical,

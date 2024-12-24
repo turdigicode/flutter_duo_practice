@@ -12,6 +12,7 @@ dependencies:
     sdk: flutter
 
   flutter_bloc: ^8.1.6
+  flutter_launcher_icons: ^0.14.2
   cupertino_icons: ^1.0.8
   flutter_inappwebview: ^6.1.5
   just_audio: ^0.9.20
@@ -21,6 +22,7 @@ dev_dependencies:
     sdk: flutter
 
   flutter_lints: ^4.0.0
+  flutter_native_splash: ^2.4.3
 
 flutter:
   uses-material-design: true
@@ -42,3 +44,14 @@ flutter:
     - assets/images/
     - assets/images/subcategories_backgrounds/
     - assets/music/
+
+
+flutter_native_splash:
+  color: "#081320"
+  color_dark: "#081320"
+
+  android_12:
+    image: assets/images/icon_splash.png
+    icon_background_color: "#081320"
+    image_dark: assets/images/icon_splash.png
+    icon_background_color_dark: "#081320"
