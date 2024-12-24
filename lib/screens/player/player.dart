@@ -2,15 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_duo_practice/constants/app_colors.dart';
 
 import '../../constants/app_routes.dart';
+import '../../constants/app_text_styles.dart';
 
 class Player extends StatelessWidget {
   const Player({super.key});
+  final String _titleText = "Player page";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Player page"),
+        title: Text(_titleText),
+        titleTextStyle: AppTextStyles.title,
+        backgroundColor: AppColors.background,
+        centerTitle: true,
         leading:
           IconButton(
             onPressed: (){
@@ -19,11 +24,11 @@ class Player extends StatelessWidget {
             icon: const Icon(Icons.arrow_back)),
       ),
       backgroundColor: AppColors.primary,
-      body: const Center(
+      body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("Player page"),
+              Text(_titleText),
             ],
           )
       ),

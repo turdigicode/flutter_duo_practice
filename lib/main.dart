@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_duo_practice/constants/app_text_styles.dart';
 import '../constants/app_colors.dart';
 import '../constants/app_routes.dart';
-import '../constants/fonts_constants.dart';
 import '../screens/home/home.dart';
-import '../screens/player/player.dart';
 import '../screens/profile/profile.dart';
+import 'screens/player/player.dart';
 
 void main() {
   runApp(const MyApp());
@@ -41,6 +40,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
+  bool isPlayerPageOpened = false;
 
   final List<Widget> _screens = [
     const Home(),
@@ -49,12 +49,18 @@ class _MainPageState extends State<MainPage> {
   ];
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-      if(_selectedIndex == 1){
-        Navigator.pushNamed(context, AppRoutes.player);
-      }
-    });
+    if (index == 1 && !isPlayerPageOpened) {
+      isPlayerPageOpened = true;
+      Navigator.pushNamed(context, AppRoutes.player).then((_) {
+        setState(() {
+          isPlayerPageOpened = false;
+        });
+      });
+    } else if (index != 1) {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
   }
 
   @override
@@ -75,7 +81,7 @@ class _MainPageState extends State<MainPage> {
           ),
           BottomNavigationBarItem(
               icon: Icon(Icons.play_circle_rounded, size: 70),
-              label: ""
+              label: "",
           ),
           BottomNavigationBarItem(
               icon: Icon(Icons.account_circle_rounded, size: 40),
