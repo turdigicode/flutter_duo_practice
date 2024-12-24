@@ -4,9 +4,13 @@ import '../constants/app_colors.dart';
 import '../constants/app_routes.dart';
 import '../screens/home/home.dart';
 import '../screens/profile/profile.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'screens/player/player.dart';
 
 void main() {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
   runApp(const MyApp());
 }
 
@@ -65,6 +69,7 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    FlutterNativeSplash.remove();
     return Scaffold(
       body: IndexedStack(
         index: _selectedIndex,
