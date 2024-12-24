@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_duo_practice/screens/auth_screens/landing_screen.dart';
 
 import '../main.dart';
+import '../screens/auth_screens/landing_screen.dart';
 import '../screens/home/home.dart';
 import '../screens/home/models/sub_category.dart';
 import '../screens/player/player.dart';
@@ -30,6 +31,8 @@ class AppRoutes {
               return const Player();
             case profile:
               return const Profile();
+            case landingScreen:
+              return const LandingScreen();
             case subCategoryDetails:
               final subCategory = settings.arguments as SubCategory;
               return SubCategoryDetails(subCategory: subCategory);

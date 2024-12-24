@@ -19,10 +19,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.primary,
-        title: Text("Зареєструватися", style: AppTextStyles.title),
+        backgroundColor: AppColors.secondaryBackground,
+        title: Text("Зареєструватися", style: AppTextStyles.title), centerTitle: true,
       ),
-      backgroundColor: AppColors.background,
+      backgroundColor: AppColors.primaryBackground,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
