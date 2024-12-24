@@ -49,7 +49,7 @@ class _MainPageState extends State<MainPage> {
   final List<Widget> _screens = [
     const Home(),
     const Player(),
-    const Profile()
+    const Profile(),
   ];
 
   void _onItemTapped(int index) {

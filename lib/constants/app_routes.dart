@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_duo_practice/screens/auth_screens/landing_screen.dart';
-
 import '../main.dart';
 import '../screens/auth_screens/landing_screen.dart';
 import '../screens/home/home.dart';
