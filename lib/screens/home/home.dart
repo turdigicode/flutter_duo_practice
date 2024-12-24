@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_duo_practice/constants/app_colors.dart';
 import 'package:flutter_duo_practice/constants/app_routes.dart';
 import 'package:flutter_duo_practice/screens/home/models/sub_category.dart';
-
 import '../../constants/app_text_styles.dart';
 import 'mocks/main_category.mocks.dart';
 import 'mocks/sub_category.mocks.dart';
@@ -20,25 +19,25 @@ class _HomeState extends State<Home> {
   final String _titleText = "Home page";
   final String profileImageSrc =
       "https://avatars.githubusercontent.com/u/120330210?v=4";
-
-  late String _selectedCategory = _defaultCategory;
+  late String _selectedCategory;
   late List<SubCategory> filteredSubCategories;
-
-  void selectCategory(category) => setState(() {
-    _selectedCategory = category;
-  });
 
   @override
   void initState() {
     super.initState();
     _selectedCategory = _defaultCategory;
+    filteredSubCategories = subCategories;
+  }
+
+  void selectCategory(category) => setState(() {
+    _selectedCategory = category;
     filteredSubCategories = _selectedCategory == _defaultCategory
         ? subCategories
         : subCategories
-            .where((subCategory) =>
-                subCategory.mainCategory.name == _selectedCategory)
-            .toList();
-  }
+        .where((subCategory) =>
+    subCategory.mainCategory.name == _selectedCategory)
+        .toList();
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +45,8 @@ class _HomeState extends State<Home> {
         appBar: AppBar(
           title: Text(_titleText),
           backgroundColor: AppColors.primaryBackground,
+          titleTextStyle: AppTextStyles.title,
+          centerTitle: true,
           leading: Padding(
             padding: const EdgeInsets.only(left: 20),
             child: Image.network(profileImageSrc),
@@ -88,7 +89,7 @@ class MainCategoriesChips extends StatelessWidget {
             padding: const EdgeInsets.all(5),
             child: ChoiceChip(
               label: Text(mainCategory.name),
-              labelStyle: AppTextStyles.title,
+              labelStyle: AppTextStyles.buttonPrimary,
               showCheckmark: false,
               backgroundColor: AppColors.secondaryBackground,
               selectedColor: AppColors.accent,
@@ -166,7 +167,9 @@ class SubCategoriesGridView extends StatelessWidget {
                     ]),
               ),
             ),
-          );
-        });
+          ),
+        );
+      }
+    );
   }
 }

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_duo_practice/constants/app_text_styles.dart';
-import 'package:flutter_duo_practice/screens/sub_category_details/mocks/PlaylistSong.mocks.dart';
-import 'package:flutter_duo_practice/screens/sub_category_details/models/PlaylistSong.dart';
-
+import 'package:flutter_duo_practice/screens/sub_category_details/mocks/playlist_song.mocks.dart';
+import 'package:flutter_duo_practice/screens/sub_category_details/models/playlist_song.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_routes.dart';
 import '../home/models/sub_category.dart';
@@ -24,33 +23,21 @@ class SubCategoryDetails extends StatelessWidget {
       appBar: AppBar(
         title: Text(subCategory.name),
         backgroundColor: AppColors.primaryBackground,
+        titleTextStyle: AppTextStyles.title,
+        centerTitle: true,
       ),
       body: Column(
         children: [
-          // Stack(
-          //   alignment: Alignment.center,
-          //   children: [
           Expanded(
             child: Container(
               alignment: Alignment.center,
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(30)),
                 child:
-                    Image.network(subCategory.pathToImage, fit: BoxFit.cover),
+                  Image.asset(subCategory.pathToImage, fit: BoxFit.cover),
               ),
             ),
           ),
-
-          // Container(
-          //   alignment: Alignment.center,
-          //   child: Text(
-          //     subCategory.name,
-          //     style: AppTextStyles.title,
-          //     textAlign: TextAlign.center,
-          //   ),
-          // ),
-          //   ],
-          // ),
           const SizedBox(height: 20),
           Expanded(
             child: MusicListView(filteredMusic: filteredMusic),
@@ -71,16 +58,22 @@ class MusicListView extends StatefulWidget {
 }
 
 class _MusicListViewState extends State<MusicListView> {
+  void toggleLikedState(int index) {
+    return setState(() {
+      widget.filteredMusic[index].isLiked =
+      !widget.filteredMusic[index].isLiked;
+    });
+  }
+
+  IconData changeLikedIcon(bool isLiked) {
+      return isLiked ? Icons.favorite : Icons.favorite_border;
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: widget.filteredMusic.length,
       itemBuilder: (context, index) {
-        IconData icon;
-        icon = widget.filteredMusic[index].isLiked
-            ? Icons.favorite
-            : Icons.favorite_border;
-
         final song = widget.filteredMusic[index];
 
         return GestureDetector(
@@ -122,15 +115,12 @@ class _MusicListViewState extends State<MusicListView> {
                   ),
                   IconButton(
                     icon: Icon(
-                      icon,
+                      changeLikedIcon(song.isLiked),
                       size: 30,
                     ),
                     color: AppColors.highlight,
                     onPressed: () {
-                      setState(() {
-                        widget.filteredMusic[index].isLiked =
-                            !widget.filteredMusic[index].isLiked;
-                      });
+                      toggleLikedState(index);
                     },
                   ),
                 ],
